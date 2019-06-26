@@ -9,6 +9,8 @@
 
 import React from 'react';
 import renderer from 'react-test-renderer'
+import * as rtl from '@testing-library/react';
+
 import { render, fireEvent }  from '@testing-library/react';
 import '@testing-library/react/cleanup-after-each'; // keeps the test from adding a new app everytime - cleans up the tests
 
@@ -60,6 +62,21 @@ describe('<Controls />', () => {
         expect(button.disabled).toBe(true);
     })
     
-
+    rtl.cleanup();
 })
+
+// Snapshots
+describe('<Controls />', () => {
+  
+    it('runs tests', () => {
+      expect(true).toBe(true)
+    })
+  
+    it('matches snapshot', () => { // identifies if anything changes after component is finished
+      const tree = renderer.create(<Controls flag={'yes'} />); // generates a dom tree
+      
+      expect(tree.toJSON()).toMatchSnapshot() //snapshots are a JSON representative of the DOM tree
+    })
+  
+  })
 
